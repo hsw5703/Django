@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>리얼타이틀쓰</title>
-</head>
+
+{% include 'head.html' %}
+
 <body>
-    <p>이건뭐냐</p>
-    <div>
-        <h1>제목쓰</h1>
-    </div>
+
+{% include 'header.html' %}
+
+{% block content %}
+{% endblock %}
+
+{% include 'footer.html' %}
 </body>
 </html>
