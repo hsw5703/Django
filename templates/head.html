@@ -1,3 +1,5 @@
+{% load static %}  <!-- static과 연결해주는 구문 -->
+
 <head>
     <meta charset="UTF-8">
     <title>리얼타이틀쓰</title>
@@ -10,4 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 
+    {#  static files link  #}
+    <link rel="stylesheet" type='text/css' href="{% static 'base.css' %}">
+    {#  link 적고 tap 누르면 자동으로 적어준다. href는 경로 #}
 </head>
