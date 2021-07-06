@@ -135,6 +135,7 @@ STATIC_URL = '/static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
+# https://docs.djangoproject.com/ko/3.2/howto/static-files/ #검색 : django static
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
