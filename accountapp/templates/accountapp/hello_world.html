@@ -10,18 +10,18 @@
             height: 48px;
             width: 48px;
             border-radius: .5rem;
+            display: inline-block; <!-- block을 가로로 연결해 표시 -->
         }
 
     </style>
 
-    <div style="height: 20rem; background-color: #ffffcc; margin:2rem; border-radius: 1rem;">
+    <div style="height: 20rem; background-color: #ffffcc; margin:2rem; border-radius: 1rem; overflow: scroll">  <!-- overflow: scroll 은 넘치는 부분에 대해 스크롤바를 생성 -->
         <h1>TEST</h1>
 
-        <div class="testing" style="display: block">block</div>
-        <div class="testing" style="display: inline">block</div>
-        <div class="testing" style="display: inline-block">block</div>
-        <div class="testing" style="display: none">block</div>
-        <div class="testing">block</div>
+        <div class="testing" style="height : 48px; width: 48px">px</div>
+        <div class="testing" style="height: 3rem; width: 3rem">rem</div>
+        <div class="testing" style="height: 3em; width: 3em">em</div>
+        <div class="testing" style="height: 30%; width: 30%">%</div> <!-- 바로 위의 부모 태그만의 30%씩을 따라간다 -->
 
     </div>
 
