@@ -9,6 +9,8 @@
         <form action="/account/hello_world/" method="post">
             {% csrf_token %}
             <!-- 버튼에 csrf 연결해주는 것 -->
+            <input type="text" name="input_text">
+            <!-- type='text' : text를 입력할 수 있는 칸을 생성 -->
             <input type="submit" class="btn btn-primary rounded-pill px-4">
             <!-- class=~ : bootstrap에서 class 부분만 긁어와서 사용하면 된다. -->
             <!-- rounded-pill : 버튼을 둥글게 -->
