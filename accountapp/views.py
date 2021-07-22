@@ -1,34 +1,35 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render
 
 from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
+from accountapp.decorators import account_ownership_required
 from accountapp.forms import AccountCreationForm
 from accountapp.models import Helloworld
 
 
+@login_required(login_url=reverse_lazy('accountapp:login'))
 def hello_world(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
+    if request.method == 'POST':
 
-            temp = request.POST.get('input_text')
-            # input_txt라는 이름을 가진 hello_world.html의 값을 가져온다.
+        temp = request.POST.get('input_text')
+        # input_txt라는 이름을 가진 hello_world.html의 값을 가져온다.
 
-            new_hello_world = Helloworld()
-            new_hello_world.text = temp
-            new_hello_world.save()
+        new_hello_world = Helloworld()
+        new_hello_world.text = temp
+        new_hello_world.save()
 
-            return HttpResponseRedirect(reverse('accountapp:hello_world'))
+        return HttpResponseRedirect(reverse('accountapp:hello_world'))
 
-        else:
-            hello_world_list = Helloworld.objects.all()
-            return render(request, 'accountapp\hello_world.html',
-                          context={'hello_world_list': hello_world_list})
     else:
-        return HttpResponseRedirect(reverse('accountapp:login'))
+        hello_world_list = Helloworld.objects.all()
+        return render(request, 'accountapp\hello_world.html',
+                      context={'hello_world_list': hello_world_list})
 
 # 로그인 과정
 class AccountCreateView(CreateView):
@@ -42,6 +43,10 @@ class AccountDetailView(DetailView):
     context_object_name = 'target_user'
     template_name = 'accountapp/detail.html'
 
+has_ownership = [login_required, account_ownership_required]
+
+@method_decorator(has_ownership, 'get')  # 함수에 사용하는 decorator를 method에도 사용가능하도록 변환해준다.
+@method_decorator(has_ownership, 'post')
 class AccountUpdateView(UpdateView):
     model = User
     form_class = AccountCreationForm
@@ -49,32 +54,10 @@ class AccountUpdateView(UpdateView):
     success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'accountapp/update.html'
 
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated and self.get_object() == request.user:  # 로그인했는지, 또 로그인한 사람과 요청한 유저 정보와 동일한지 확인
-            return super().get(request, *args, **kwargs)
-        else:
-            return HttpResponseForbidden()  # 금지된 페이지에 접근했다는 걸 명시.
-
-    def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated and self.get_object() == request.user:
-            return super().post(request, *args, **kwargs)
-        else:
-            return HttpResponseForbidden()
-
+@method_decorator(has_ownership, 'get')  # 함수에 사용하는 decorator를 method에도 사용가능하도록 변환해준다.
+@method_decorator(has_ownership, 'post')
 class AccountDeleteView(DeleteView):
     model = User
     context_object_name = 'target_user'
     success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'accountapp/delete.html'
-
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated and self.get_object() == request.user:
-            return super().get(request, *args, **kwargs)
-        else:
-            return HttpResponseForbidden()
-
-    def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated and self.get_object() == request.user:
-            return super().post(request, *args, **kwargs)
-        else:
-            return HttpResponseForbidden()
