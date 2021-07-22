@@ -54,7 +54,7 @@ class AccountUpdateView(UpdateView):
     success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'accountapp/update.html'
 
-@method_decorator(has_ownership, 'get')  # 함수에 사용하는 decorator를 method에도 사용가능하도록 변환해준다.
+@method_decorator(has_ownership, 'get')
 @method_decorator(has_ownership, 'post')
 class AccountDeleteView(DeleteView):
     model = User

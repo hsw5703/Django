@@ -20,3 +20,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# python manage.py createsuperuser : 관리자 계정 생성 명령어 - terminal
