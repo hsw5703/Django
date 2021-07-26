@@ -9,7 +9,9 @@
             </h4>
         </div>
         <div>
-            <form action="{% url 'profileapp:create' %}" method="post">
+            <form action="{% url 'profileapp:create' %}"
+                  enctype="multipart/form-data" {# form 요소가 파일이나 이미지를 서버로 전송할 때 사용한다. #}
+                  method="post">
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 <div class="m-3">
