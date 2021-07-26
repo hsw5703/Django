@@ -135,6 +135,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [BASE_DIR / "static", ]  # static file의 위치를 설정. base_dir은 최상위 폴더 위치
 
 MEDIA_URL = '/media/'
