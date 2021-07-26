@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}  {# views.py의 "form_class = UserCreationForm"을 사용하는 경우 필요 #}
+{% block content %}
+
+    <div class="text-center mw-500 m-auto">
+        <div class="m-5"> <!-- bootstrap의 명령어 m-5는 사방으로 5의 margin을 두라는 뜻 -->
+            <h4>
+                Create Profile
+            </h4>
+        </div>
+        <div>
+            <form action="{% url 'profileapp:create' %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <div class="m-3">
+                    <input type="submit"
+                           class="btn btn-dark rounded-pill px-5">
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
