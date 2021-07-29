@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 # Create your views here.
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView
 
@@ -16,8 +16,10 @@ from profileapp.models import Profile
 class ProfileCreateView(CreateView):
     model = Profile
     form_class = ProfileCreationForm
-    success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'profileapp/create.html'
+
+    def get_success_url(self):
+        return reverse('accountapp:detail', kwargs={'pk':self.object.user.pk})
 
     def form_valid(self, form):  # 파일의 형식이 이미지인지 판별 후 이미지가 맞다면 이 구문을 실행한다.
         form.instance.user = self.request.user
@@ -29,5 +31,7 @@ class ProfileUpdateView(UpdateView):
     model = Profile
     context_object_name = 'target_profile'
     form_class = ProfileCreationForm
-    success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'profileapp/update.html'
+
+    def get_success_url(self):
+        return reverse('accountapp:detail', kwargs={'pk':self.object.user.pk})
