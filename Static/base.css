@@ -43,3 +43,14 @@
 .round_button:hover {
     color :dimgray;
 }
+
+.article_image {
+    width:60%;
+    border-radius: 2rem;
+    box-shadow: 0 0 1rem grey; /*  x위치 y위치 적용범위 색  */
+}
+
+.article_content {
+    text-align: left;
+    font-size:1.1rem;
+}
